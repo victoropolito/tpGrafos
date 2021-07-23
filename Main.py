@@ -6,25 +6,35 @@ import sys
 
 # colocar arquivo de entrada
 # função que lê o arquivo e transforma em lista/matriz
-
 def le_arquivo():
     arq = open('example.txt', 'r')
     FirstLine = arq.readline().rstrip()
     FirstLine = FirstLine.split()
-
+    print(arq)
+    print(FirstLine)
     Vertices = int(FirstLine[0])
     Arestas = int(FirstLine[1])
-
+    print(Vertices)
+    print(Arestas)
     Matriz = [[0 for _ in range(Vertices)] for _ in range(Vertices)]
+    print(Matriz)
     Lista = [[] for x in range(Vertices)]
+    print(Lista)
     Peso = [[] for i in range(0, Arestas)]
+    print(Peso)
 
     for i in range(0, Arestas):
         Aresta = arq.readline()
+        print()
+        print(Aresta)
         Aresta = Aresta.split(" ")
+        print(Aresta)
         x = int(Aresta[0])
+        print(x)
         y = int(Aresta[1])
+        print(y)
         z = int(Aresta[2])
+        print(z)
         Lista[x].append((y, z))
         Lista[y].append((x, z))
         Matriz[x][y] = z
@@ -32,9 +42,10 @@ def le_arquivo():
         Peso[i] = z
 
     for i in range(0, Vertices):
-        print(f"Vertice %s:" % i, Lista[i])
+        print   
 
     # FUNÇÃO DE MAIOR/MENOR GRAU, MEDIA E FRENQUENCIA RELATIVA
+    
     # TO-DO INDICAR VÉRTICE DO MAIOR/MENOR GRAU
     grau_maior = Peso[0]
     grau_menor = Peso[0]
@@ -62,6 +73,7 @@ def le_arquivo():
         freq_rel_maior = (qntd_vertices_maior / Vertices)
         freq_rel_menor = (qntd_vertices_menor / Vertices)
 
+    #sequencia de prints
     print(f"Maior grau: {grau_maior} - Vertice: ")
     print(f"Menor grau: {grau_menor} - Vertice: ")
     print(f"Grau medio: {grau_media}")
@@ -70,14 +82,6 @@ def le_arquivo():
     print("-----------------------------------------------")
 
     # forma_de_apresentacao = input('Digite qual sera a forma de representacao do grafo (Lista/Matriz): ')
-
-    '''if(forma_de_apresentacao == 'Matriz' or forma_de_apresentacao == 'matriz'):
-        for i in range(0, Vertices):
-            print(Matriz[i])
-    
-    elif(forma_de_apresentacao == 'Lista'):
-        for i in range(0, Vertices):
-            print(Lista[i])'''
 
 G = [
     [1, 4],
@@ -148,8 +152,9 @@ def componentes_conexas(G):
     for u in range(len(G)):
         if comp[u] == 0:
             marca+=1
+            print(marca)
             busca_profundidade_rec(G,u, marca)
-
+    
     return comp
 
 def busca_profundidade_rec(G, s, marca):
@@ -158,4 +163,51 @@ def busca_profundidade_rec(G, s, marca):
         if comp[v] == 0:
             busca_profundidade_rec(G, v, marca)
 
-print(componentes_conexas(G))
+#print(componentes_conexas(G))
+
+##################### INICIO DA IDENTAÇÃO ###############################
+
+class Arquivo:
+    #Método contrutor da classe
+    def __init__(self, arquivo_entrada = None, arquivo_saida = None):
+        self.arquivo_entrada = arquivo_entrada
+        self.arquivo_saida = arquivo_saida
+        #self.vertices = []
+        #self.arestas = []
+        #self.comandos = []
+        #self.grafos = []
+        #self.peso = []
+
+    #Função que abre o arquivo e o retorna aberto (default)
+    def abrir_arquivo(self, arquivo, modo_abertura):
+        return open(arquivo, modo_abertura)
+
+    def ler_arquivo(self):
+        arq = self.abrir_arquivo(self.arquivo_entrada, "r")
+        lista_dados = arq.readlines()
+        arq.close()
+        return lista_dados
+
+    def distribui_dados(self, lista):
+	    indice_vertice = lista.index("ARESTAS\n")
+	    indice_aresta = lista.index("COMANDOS\n")
+
+	    dados = {}
+	    dados['grafo'] = []
+	    dados['arestas'] = []
+	    dados['comandos'] = []
+
+	    for i in lista[1:indice_vertice - 1]:
+	    	dados['grafo'].append(i)
+
+	    for i in lista[indice_vertice + 1:indice_aresta - 1]:
+	    	dados['arestas'].append(i)
+
+	    for i in lista[indice_aresta + 1:]:
+	    	dados['comandos'].append(i)	
+
+	    return dados        
+
+print(le_arquivo())
+
+print(busca_largura(G, 0))
