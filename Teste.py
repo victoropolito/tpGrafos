@@ -1,0 +1,25 @@
+import Funcoes
+import matplotlib.pyplot as grafico
+
+arq = Funcoes.ler_arquivo('collaboration_graph.txt')
+Lista = Funcoes.calcula_infos(arq)
+grafico.xlabel("Vertice")
+grafico.ylabel("Grau")
+grafico.axis(ymin = 0, ymax = max(Funcoes.calcula_infos(Lista, 2)))
+grafico.axis(xmin = 0, xmax = len(Lista))
+grafico.plot(Funcoes.calcula_infos(Lista, 2))
+grafico.show()
+
+#a = ler_arquivo('collaboration_graph.txt')
+#b = calcula_infos(a)
+#print(b)
+#lista = gera_lista_sem_peso('collaboration_graph.txt')
+#print()
+#print(define_busca(lista))
+#print(lista)
+#print(busca_largura(lista, 0))
+#print()
+#print(busca_prufundidade(lista, 0))
+#print()
+#grava_arquivo(b,'example_out.txt')
+#print(componentes_conexas(lista))
